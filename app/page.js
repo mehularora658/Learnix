@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <div>
       <h2> Hello World!</h2>
-      <Button>Mehul Boss</Button>
+      <Button>Mehul Master</Button>
       <UserButton />
     </div>
   );
