@@ -3,6 +3,7 @@ import React from 'react'
 import AppSidebar from './_components/AppSidebar'
 import AppHeader from './_components/AppHeader'
 
+
 function WorkspaceProvider({ children }) {
     return (
         <SidebarProvider>
@@ -10,7 +11,10 @@ function WorkspaceProvider({ children }) {
 
             <div className='w-full'>
                 <AppHeader />
-                {children}</div>
+                <div className='p-10'>
+                    {children}
+                </div>
+            </div>
         </SidebarProvider>
     )
 }
