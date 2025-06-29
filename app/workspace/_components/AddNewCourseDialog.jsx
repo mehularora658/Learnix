@@ -17,20 +17,26 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
-import { Sparkle } from 'lucide-react'
+import { Loader2Icon, Sparkle } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { Description } from '@radix-ui/react-dialog'
+import axios from 'axios'
+import { v4 as uuidv4 } from 'uuid';
+import { useRouter } from 'next/navigation'
+
 
 function AddNewCourseDialog({ children }) {
 
+    const [loading, setLoading] = useState(false);
     const [formData, setFomData] = useState({
         name: '',
         description: '',
         includeVideo: false,
-        noOfChapter: 1,
+        noOfChapters: 1,
         category: '',
         level: ''
     });
+
+    const router = useRouter();
 
     const onHandleInputChange = (feild, value) => {
         setFomData(prev => ({
@@ -41,8 +47,24 @@ function AddNewCourseDialog({ children }) {
 
     }
 
-    const onGenerate = () => {
+    const onGenerate = async () => {
         console.log(formData);
+        const courseId = uuidv4();
+        console.log(courseId);
+
+        try {
+            setLoading(true);
+            const result = await axios.post('/api/generate-course-layout', {
+                ...formData,
+                courseId: courseId
+            })
+            console.log(result.data);
+            setLoading(false);
+            router.push('/workspace/edit-course' + result.data?.courseId)
+        } catch (e) {
+            setLoading(false);
+            console.log(e);
+        }
     }
 
     return (
@@ -66,7 +88,7 @@ function AddNewCourseDialog({ children }) {
                             <div>
                                 <label>No. of Chapters</label>
                                 <Input placeholder="No of chapters" type="number"
-                                    onChange={(event) => onHandleInputChange('noOfChapter', event?.target.value)} />
+                                    onChange={(event) => onHandleInputChange('noOfChapters', parseInt(event?.target.value))} />
                             </div>
                             <div className='flex gap-3 items-center'>
                                 <label>Include Video</label>
@@ -93,7 +115,14 @@ function AddNewCourseDialog({ children }) {
                                     onChange={(event) => onHandleInputChange('category', event?.target.value)} />
                             </div>
                             <div className='mt-5'>
-                                <Button className={"w-full"} onClick={onGenerate} ><Sparkle /> Generate Course</Button>
+                                <Button className={"w-full"} onClick={onGenerate} disabled={loading} >
+                                    {
+                                        loading ?
+                                            <Loader2Icon className='animate-spin ' />
+                                            :
+                                            <Sparkle />
+                                    }Generate Course
+                                </Button>
                             </div>
 
                         </div>
