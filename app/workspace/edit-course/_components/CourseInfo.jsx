@@ -1,11 +1,30 @@
 import { Button } from '@/components/ui/button';
+import axios from 'axios';
 import { Book, Clock, Settings, TrendingUp } from 'lucide-react';
 import Image from 'next/image';
-import React from 'react'
+import React, { useState } from 'react'
 
 function CourseInfo({ course }) {
 
     const courseLayout = course?.courseJson?.course;
+    const [loading, setLoading] = useState(false)
+    const GenerateCourseContent = async () => {
+        // Call API to generate content
+        setLoading(true);
+        try {
+            const result = await axios.post('/api/generate-course-content', {
+                courseJson: courseLayout,
+                courseTitle: course?.name,
+                courseId: course?.cid
+            })
+            console.log(result.data);
+            setLoading(false)
+        } catch (e) {
+            console.log(e);
+            setLoading(false)
+        }
+
+    }
 
     return (
         <div className='md:flex gap-5 justify-between p-5 rounded-2xl shadow'>
@@ -36,7 +55,7 @@ function CourseInfo({ course }) {
                     </div>
                 </div>
 
-                <Button className={'max-w-sm'}> <Settings /> Generate Content</Button>
+                <Button onClick={GenerateCourseContent} className={'max-w-sm'}> <Settings /> Generate Content</Button>
             </div>
             <Image src={course?.bannerImageUrl}
                 alt={'banner Image'} width={400} height={400}
