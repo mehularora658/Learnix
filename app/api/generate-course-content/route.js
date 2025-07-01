@@ -55,17 +55,14 @@ export async function POST(req) {
         });
 
         const rawText = response?.candidates?.[0]?.content?.parts?.[0]?.text || '';
-        console.log('Raw AI Response:', rawText);
+
 
         const rawJson = rawText.replace(/```json|```/g, '').trim();
         const jsonResp = JSON.parse(rawJson);
 
         //get yt videos
         const youtubeData = await GetYoutubeVideo(chapter?.chapterName)
-        console.log({
-            youtubeVideo: youtubeData,
-            courseData: jsonResp
-        });
+
 
         return {
             youtubeVideo: youtubeData,
@@ -106,7 +103,7 @@ const GetYoutubeVideo = async (topic) => {
         }
         youtubeVideoList.push(data);
     });
-    console.log('youtube video list', youtubeVideoList);
+
 
     return youtubeVideoList;
 }

@@ -20,7 +20,7 @@ function CourseInfo({ course }) {
                 courseTitle: course?.name,
                 courseId: course?.cid
             })
-            console.log(result.data);
+
             setLoading(false)
             router.replace('/workspace')
             toast.success('Course Generated Suessfully');

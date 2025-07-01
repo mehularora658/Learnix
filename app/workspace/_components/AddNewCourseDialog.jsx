@@ -43,14 +43,14 @@ function AddNewCourseDialog({ children }) {
             ...prev,
             [feild]: value
         }))
-        console.log(formData);
+
 
     }
 
     const onGenerate = async () => {
-        console.log(formData);
+
         const courseId = uuidv4();
-        console.log(courseId);
+
 
         try {
             setLoading(true);
@@ -58,7 +58,7 @@ function AddNewCourseDialog({ children }) {
                 ...formData,
                 courseId: courseId
             })
-            console.log(result.data);
+
             setLoading(false);
             router.push('/workspace/edit-course/' + result.data?.courseId)
         } catch (e) {

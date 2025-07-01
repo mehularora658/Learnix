@@ -19,7 +19,7 @@ function EditCourse() {
     const GetCourseInfo = async () => {
         setLoading(true);
         const result = await axios.get('/api/courses?courseId=' + courseId);
-        console.log(result.data);
+
         setLoading(false)
         setCourse(result.data);
     }

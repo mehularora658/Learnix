@@ -39,10 +39,10 @@ export const ai = new GoogleGenAI({
 export async function POST(req) {
     try {
         const { courseId, ...formData } = await req.json();
-        console.log('Received formData:', formData);
+
 
         const user = await currentUser();
-        console.log('User:', user);
+
 
 
 
@@ -63,7 +63,7 @@ export async function POST(req) {
         });
 
         const rawText = response?.candidates?.[0]?.content?.parts?.[0]?.text || '';
-        console.log('Raw AI Response:', rawText);
+
 
         const rawJson = rawText.replace(/```json|```/g, '').trim();
         const jsonResp = JSON.parse(rawJson); // ⚠️ This line can still throw!
@@ -89,9 +89,6 @@ export async function POST(req) {
             { error: 'Internal Server Error', details: err.message },
             { status: 500 }
         );
-    } finally {
-        console.log('am mehul');
-
     }
 }
 
@@ -111,7 +108,7 @@ const GenerateImage = async (imagePrompt) => {
                 'Content-Type': 'application/json', // Content Type
             },
         })
-    console.log(result.data.image)
+
     //Output Result: Base 64 Image
 
     return result.data.image
