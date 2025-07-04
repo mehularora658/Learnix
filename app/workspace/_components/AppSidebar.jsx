@@ -47,7 +47,7 @@ const SidebarOptions = [
     {
         title: 'Profile',
         icon: UserCircle2Icon,
-        path: '/workspcace/profile'
+        path: '/workspace/profile'
     }
 ]
 
