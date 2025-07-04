@@ -19,13 +19,14 @@ function Course() {
         const result = await axios.get('/api/enroll-course?courseId=' + courseId);
         console.log(result.data);
         setCourseInfo(result.data);
+
     }
     return (
         <div>
             <AppHeader hideSidebar={true} />
             <div className='flex gap-10'>
                 <ChapterListSideBar courseInfo={courseInfo} />
-                <ChapterContent courseInfo={courseInfo} />
+                <ChapterContent courseInfo={courseInfo} refreshData={GetEnrolledCourseById} />
             </div>
         </div>
     )

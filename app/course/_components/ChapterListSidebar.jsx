@@ -6,6 +6,7 @@ import {
     AccordionTrigger,
 } from "@/components/ui/accordion"
 import { SelectedChapterIndexContext } from '@/context/SelectedChapterIndexContext';
+import { CheckCircle } from 'lucide-react';
 
 function ChapterListSideBar({ courseInfo }) {
 
@@ -13,6 +14,8 @@ function ChapterListSideBar({ courseInfo }) {
     const enrollCourse = courseInfo?.enrollCourse
     const courseContent = courseInfo?.courses?.courseContent
     const { selectedChapterIndex, setSelectedChapterIndex } = useContext(SelectedChapterIndexContext);
+    let completedChapter = enrollCourse?.completedChapters ?? []
+
 
 
     return (
@@ -23,13 +26,18 @@ function ChapterListSideBar({ courseInfo }) {
                     <AccordionItem value={chapter?.courseData?.chapterName} key={index}
 
                     >
-                        <AccordionTrigger className={'text-lg font-medium'}
+                        <AccordionTrigger className={`text-lg font-medium px-5
+                        ${completedChapter.includes(index) ? 'bg-green-100 text-green-800' : ''}`}
                             onClick={() => setSelectedChapterIndex(index)}
-                        >{index + 1}. {chapter?.courseData?.chapterName}</AccordionTrigger>
+                        >
+
+                            {index + 1} . {chapter?.courseData?.chapterName}</AccordionTrigger>
                         <AccordionContent asChild>
                             <div className=''>
-                                {chapter?.courseData?.topics.map((topic, index) => (
-                                    <h2 key={index} className='p-2 bg-white my-1'>{topic?.topic}</h2>
+                                {chapter?.courseData?.topics.map((topic, index_) => (
+                                    <h2 key={index_} className={`p-2  my-1 rounded-lg
+                                        ${completedChapter.includes(index) ? 'bg-green-100 text-green-800' : 'bg-white'}`}>
+                                        {topic?.topic}</h2>
                                 ))}
                             </div>
                         </AccordionContent>
