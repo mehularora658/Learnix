@@ -27,7 +27,7 @@ const SidebarOptions = [
     {
         title: 'My Courses',
         icon: Book,
-        path: '/workspace/my-courses'
+        path: '/workspace/my-learning'
     },
     {
         title: 'Discover',
