@@ -72,7 +72,8 @@ function AppSidebar() {
                             {SidebarOptions.map((item, index) => (
                                 <SidebarMenuItem key={index}>
                                     <SidebarMenuButton asChild className={'p-5'}>
-                                        <Link href={item.path} className={`text-[17px] ${path.includes(item.path) && 'text-primary bg-blue-50'}`}>
+                                        <Link href={item.path} className={`text-[17px] 
+                                            ${path === item.path && 'text-primary bg-blue-50'}`}>
                                             <item.icon className='h-7 w-7' />
                                             <span>{item.title}</span>
                                         </Link>

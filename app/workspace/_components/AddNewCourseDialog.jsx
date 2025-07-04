@@ -22,6 +22,7 @@ import { Button } from '@/components/ui/button'
 import axios from 'axios'
 import { v4 as uuidv4 } from 'uuid';
 import { useRouter } from 'next/navigation'
+import { toast } from 'sonner'
 
 
 function AddNewCourseDialog({ children }) {
@@ -58,7 +59,10 @@ function AddNewCourseDialog({ children }) {
                 ...formData,
                 courseId: courseId
             })
-
+            if (result.data.resp == 'limit exceed') {
+                toast.warning('Please subscribe to a plan')
+                router.push('/workspace/billing')
+            }
             setLoading(false);
             router.push('/workspace/edit-course/' + result.data?.courseId)
         } catch (e) {

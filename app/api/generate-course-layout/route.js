@@ -1,7 +1,7 @@
 
 import { db } from '@/config/db';
 import { coursesTable } from '@/config/schema';
-import { currentUser } from '@clerk/nextjs/server';
+import { auth, currentUser } from '@clerk/nextjs/server';
 import {
     GoogleGenAI,
 } from '@google/genai';
@@ -43,6 +43,9 @@ export async function POST(req) {
 
         const user = await currentUser();
 
+        const { has } = await auth()
+        const hasPremiumAccess = has({ plan: 'starter' })
+
 
 
 
@@ -50,6 +53,16 @@ export async function POST(req) {
             role: 'user',
             parts: [{ text: PROMPT + JSON.stringify(formData) }],
         }];
+
+        // if user already 
+        if (!hasPremiumAccess) {
+            const result = await db.select().from(coursesTable)
+                .where(eq(coursesTable.userEmail, user?.primaryEmailAddress.emailAddress));
+
+            if (result.length >= 1) {
+                return NextResponse.json({ 'resp': 'limit exceed' })
+            }
+        }
 
         const response = await ai.models.generateContent({
             model: 'gemini-2.5-pro',
