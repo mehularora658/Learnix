@@ -1,8 +1,8 @@
 "use client"
 import AppHeader from '@/app/workspace/_components/AppHeader'
 import React, { useEffect, useState } from 'react'
-import ChapterListSideBar from '../_components/ChapterListSideBar'
-import ChapterContent from '../_components/ChapterContent'
+import ChapterListSideBar from '@/app/course/_components/ChapterListSideBar'
+import ChapterContent from '@/app/course/_components/ChapterContent'
 import { useParams } from 'next/navigation'
 import axios from 'axios'
 
