@@ -1,7 +1,7 @@
 "use client"
 import AppHeader from '@/app/workspace/_components/AppHeader'
 import React, { useEffect, useState } from 'react'
-import ChapterListSideBar from '@/app/course/_components/ChapterListSideBar'
+import ChapterListSidebar from '@/app/course/_components/ChapterListSidebar'
 import ChapterContent from '@/app/course/_components/ChapterContent'
 import { useParams } from 'next/navigation'
 import axios from 'axios'
@@ -25,7 +25,7 @@ function Course() {
         <div>
             <AppHeader hideSidebar={true} />
             <div className='flex gap-10'>
-                <ChapterListSideBar courseInfo={courseInfo} />
+                <ChapterListSidebar courseInfo={courseInfo} />
                 <ChapterContent courseInfo={courseInfo} refreshData={GetEnrolledCourseById} />
             </div>
         </div>

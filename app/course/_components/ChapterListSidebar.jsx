@@ -8,7 +8,7 @@ import {
 import { SelectedChapterIndexContext } from '@/context/SelectedChapterIndexContext';
 import { CheckCircle } from 'lucide-react';
 
-function ChapterListSideBar({ courseInfo }) {
+function ChapterListSidebar({ courseInfo }) {
 
     const course = courseInfo?.courses;
     const enrollCourse = courseInfo?.enrollCourse
@@ -49,4 +49,4 @@ function ChapterListSideBar({ courseInfo }) {
     )
 }
 
-export default ChapterListSideBar
+export default ChapterListSidebar
