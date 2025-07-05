@@ -6,6 +6,7 @@ import {
     GoogleGenAI,
 } from '@google/genai';
 import axios from 'axios';
+import { eq } from 'drizzle-orm';
 import { NextResponse } from 'next/server';
 
 
